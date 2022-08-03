@@ -16,6 +16,15 @@ public class CabInvoiceGenerator {
         double totalFare = distance * COST_PER_KM + time * COST_PER_MIN;
         return Math.max(totalFare, MIN_FARE);
     }
+    
+    public InvoiceSummary calculateFare(Rides[] rides) {
+		double totalFare = 0.0;
+		for (Rides ride : rides) {
+			totalFare += calculateFare(ride.getDistance(), ride.getTime());
+		}
+		System.out.println("Length of ride is " + rides.length + "KM and Fare is " + totalFare);
+		return new InvoiceSummary(rides.length, totalFare);
+	}
 
 	public static void main(String[] args) {
 		System.out.println("****************Cab Invoice Generator****************");
